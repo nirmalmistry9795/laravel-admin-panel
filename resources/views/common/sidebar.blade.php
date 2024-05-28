@@ -40,8 +40,8 @@
                 @hasrole('Admin')
                     <a class="collapse-item" href="{{ route('users.create') }}">Add New</a>
                     <a class="collapse-item" href="{{ route('users.import') }}">Import Data</a>
-                    <a class="collapse-item" href="{{ route('vendors.index') }}">Vendors</a>
                 @endhasrole
+                <a class="collapse-item" href="{{ route('vendors.index') }}">Vendors</a>
             </div>
         </div>
     </li>
