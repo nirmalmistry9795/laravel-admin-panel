@@ -32,6 +32,9 @@ class VendorController extends Controller
     public function index()
     {
         $vendors = Vendor::paginate(50);
+        if (auth()->user()->hasRole('Vendor')) {
+            $vendors = Vendor::where('user_id', auth()->user()->id)->paginate(50);
+        }
         return view("vendors.index", ['vendors' => $vendors]);
     }
 

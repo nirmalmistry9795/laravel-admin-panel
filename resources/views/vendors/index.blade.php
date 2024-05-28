@@ -61,29 +61,35 @@
                                             @endif
                                         </td>
                                         <td style="display: flex">
-                                            @if ($vendor->user->status == 0)
-                                                <a href="{{ route('vendors-status', ['user_id' => $vendor->user_id, 'status' => 1]) }}"
-                                                    class="btn btn-success m-2">
-                                                    <i class="fa fa-check"></i>
-                                                </a>
-                                            @elseif ($vendor->user->status == 1)
-                                                <a href="{{ route('vendors-status', ['user_id' => $vendor->user_id, 'status' => 0]) }}"
-                                                    class="btn btn-danger m-2">
-                                                    <i class="fa fa-ban"></i>
-                                                </a>
-                                            @endif
+                                            @hasrole('Admin')
+                                                @if ($vendor->user->status == 0)
+                                                    <a href="{{ route('vendors-status', ['user_id' => $vendor->user_id, 'status' => 1]) }}"
+                                                        class="btn btn-success m-2">
+                                                        <i class="fa fa-check"></i>
+                                                    </a>
+                                                @elseif ($vendor->user->status == 1)
+                                                    <a href="{{ route('vendors-status', ['user_id' => $vendor->user_id, 'status' => 0]) }}"
+                                                        class="btn btn-danger m-2">
+                                                        <i class="fa fa-ban"></i>
+                                                    </a>
+                                                @endif
+                                            @endhasrole
+
                                             <a href="{{ route('vendors.edit', ['vendor' => $vendor->id]) }}"
                                                 class="btn btn-primary m-2">
                                                 <i class="fa fa-pen"></i>
                                             </a>
-                                            <form method="POST"
-                                                action="{{ route('vendors.destroy', ['vendor' => $vendor->id]) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger m-2" type="submit">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+
+                                            @hasrole('Admin')
+                                                <form method="POST"
+                                                    action="{{ route('vendors.destroy', ['vendor' => $vendor->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger m-2" type="submit">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endhasrole
                                         </td>
                                     </tr>
                                 @endforeach
